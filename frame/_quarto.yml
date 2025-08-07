@@ -39,8 +39,6 @@ format:
     code-overflow: wrap
 
 search: true
-  location: navbar
-  type: overlay
 
 listing: 
   - id: projects
