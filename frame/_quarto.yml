@@ -38,7 +38,7 @@ format:
     code-copy: true
     code-overflow: wrap
 
-search:
+search: true
   location: navbar
   type: overlay
 
