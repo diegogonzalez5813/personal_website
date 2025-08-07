@@ -1,54 +1,54 @@
 project: 
   type: website
-  output-dir:  frame
-  
+  output-dir: frame
+
 website: 
   title: "Diego Gonzalez"
   site-url: "https://diegogonzalez.dev"
   description: "A website showcasing my CV and my project portfolio for electrical engineering, computer science, and mathematics projects"
   favicon: "favicon.ico"
   page-navigation: true
-  
+
   navbar:
-   left:
-   - text: "Home"
-     file: index.qmd
-   - text: "Projects"
-     file: projects.qmd
-   - text: "About Me"
-     file: about.qmd
-   - text: "CV"
-     file: cv.qmd
-   right: 
-   - icon: github
-     href: https://github.com/diegogonzalez5813
-   - icon: linkedin
-     href: linkedin.com/in/diego-gonzalez-aa1a24378
-   
-   page-footer:
-    left: "copy; Copyright 2025, Diego Gonzalez"
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Projects"
+        file: projects.qmd
+      - text: "About Me"
+        file: about.qmd
+      - text: "CV"
+        file: cv.qmd
+    right: 
+      - icon: github
+        href: https://github.com/diegogonzalez5813
+      - icon: linkedin
+        href: linkedin.com/in/diego-gonzalez-aa1a24378
+
+  page-footer:
+    left: "&copy; Copyright 2025, Diego Gonzalez"
     right: "Innovation in service of others."
-    
+
 format:
- html: 
-  theme: [flatly, styles.scss]
-  css: styles.css
-  toc: true
-  code-link: true
-  code-copy: true
-  code-overflow: wrap
-  
+  html: 
+    theme: [flatly, styles.scss]
+    css: styles.css
+    toc: true
+    code-link: true
+    code-copy: true
+    code-overflow: wrap
+
 search:
- location: navbar
- type: overlay
+  location: navbar
+  type: overlay
 
 listing: 
- - id: projects
-   contents: projects
-   sort: "date desc"
-   type: "default""
-   filter-ui:
-    - category
-    - date
+  - id: projects
+    contents: projects
+    sort: "date desc"
+    type: "default"
+    filter-ui:
+      - category
+      - date
 
 editor: visual
