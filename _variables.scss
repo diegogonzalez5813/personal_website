@@ -25,17 +25,17 @@ $enable-smooth-scroll: true !default;
 
 
 /*-- scss:rules --*/
-.quarto-listing .card {
+.card {
   box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.3);
   border: 0.05px solid #0c131d;
   border-radius: 0.25rem;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
-.quarto-listing .card:hover {
+.card:hover {
   transform: translateY(-10px);
   box-shadow: 0 0 12.5px 7px rgba(255, 255, 255, 0.2);
 }
 
-.quarto-listing .navbar {
+.navbar {
 border-bottom: 2px dashed #0c131d ;
 }
