@@ -1,6 +1,6 @@
 project: 
   type: website
-  output-dir: frame
+  output-dir: docs
 
 website: 
   title: "Diego Gonzalez"
@@ -12,13 +12,13 @@ website:
   navbar:
     left:
       - text: "Home"
-        file: index.qmd
+        href: about.qmd
       - text: "Projects"
-        file: projects.qmd
+        href: projects.qmd
       - text: "About Me"
-        file: about.qmd
+        href: about.qmd
       - text: "CV"
-        file: cv.qmd
+        href: cv.qmd
     right: 
       - icon: github
         href: https://github.com/diegogonzalez5813

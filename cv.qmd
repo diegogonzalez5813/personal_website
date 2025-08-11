@@ -1,5 +1,3 @@
 ---
 title: "cv"
-format: html
 ---
-
