@@ -1,6 +1,10 @@
 [
   {
     "listing": "/projects.html",
-    "items": []
+    "items": [
+      "/projects_file/R_Project.html",
+      "/projects_file/rubiks_cube_solver.html",
+      "/projects_file/Personal_Website.html"
+    ]
   }
 ]

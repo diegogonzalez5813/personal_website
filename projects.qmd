@@ -3,6 +3,9 @@ title: "projects"
 listing: 
   contents: projects_file
   type: default
-  fields: [image, title, description]
+  fields: [image, title, description, date, status]
   sort: "date desc"
+  field-display-names:
+    date: "Created"
+    status: "Status"
 ---
