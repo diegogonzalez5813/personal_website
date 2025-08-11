@@ -23,7 +23,7 @@ website:
       - icon: github
         href: https://github.com/diegogonzalez5813
       - icon: linkedin
-        href: linkedin.com/in/diego-gonzalez-aa1a24378
+        href: https://linkedin.com/in/diego-gonzalez-aa1a24378 
 
   page-footer:
     left: "&copy; Copyright 2025, Diego Gonzalez"
@@ -31,9 +31,7 @@ website:
 
 format:
   html: 
-    theme: [flatly, styles.scss]
-    css: styles.css
-    toc: true
+    theme: [flatly, _variables.scss]
     code-link: true
     code-copy: true
     code-overflow: wrap

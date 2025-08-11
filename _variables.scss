@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+/*-- scss: defaults --*/
+$primary: #0c131d;
+$secondary: #F8F8FF;
+$tertiary: #D3AF37;
+$success: #50C878;
+$danger: #C21807;
+
+
+$body-bg: $primary;
+$body-color: #c0c0c0;
+$link-color: $tertiary;
+
+$font-family-sans-serif: "Roboto Flex", sans-serif;
+$headings-color: $secondary;
+
+$navbar-bg: #0e1723;
+$navbar-fg: $secondary;
+
+.card {
+  box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.3);
+  border: 0.05px solid #0c131d;
+  border-radius: 0.25rem;
+  transition: ; transform 0.20 ease-out, box-shadow 0.20 ease-out;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 12.5px 7px rgba(255, 255, 255, 0.2);
+}
+
