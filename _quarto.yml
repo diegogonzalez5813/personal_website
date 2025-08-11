@@ -12,13 +12,13 @@ website:
   navbar:
     left:
       - text: "Home"
-        href: about.qmd
+        file: about.qmd
       - text: "Projects"
-        href: projects.qmd
+        file: projects.qmd
       - text: "About Me"
-        href: about.qmd
+        file: about.qmd
       - text: "CV"
-        href: cv.qmd
+        file: cv.qmd
     right: 
       - icon: github
         href: https://github.com/diegogonzalez5813
@@ -37,14 +37,5 @@ format:
     code-overflow: wrap
 
 search: true
-
-listing: 
-  - id: projects
-    contents: projects
-    sort: "date desc"
-    type: "default"
-    filter-ui:
-      - category
-      - date
 
 editor: visual
