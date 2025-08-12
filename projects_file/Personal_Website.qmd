@@ -6,5 +6,4 @@ date-format: null
 status: "In Progress"
 image: "Projects_Cover.png"
 format: html
-title-block-published: ""
 ---
