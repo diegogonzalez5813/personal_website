@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -151,8 +186,109 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="laptop-performance-vs-price-r-project" class="level3">
+<h3 class="anchored" data-anchor-id="laptop-performance-vs-price-r-project">Laptop Performance vs Price R Project</h3>
+<section id="introduction" class="level4">
+<h4 class="anchored" data-anchor-id="introduction">Introduction</h4>
+<p>This summer I bought a laptop with specifications powerful enough to run the engineering software needed for my program. As a college student, I was on a tight budget and wanted to get the most powerful laptop for the least amount of money. I opted to use AI to help me with the search. I have since learned R skills, and used them to answer this question instead of taking AI’s word for it.</p>
+<p>The purpose of this R project was to compare varying laptops in terms of price and performance for a productivity audience. I was hoping to find the best laptops for performance per dollar. I predicted that the best laptops would be introductory level gaming laptops due to their emphasis on CPU and their lesser known brand names. I used a data set for a laptop specifications list and a separate data set for CPU benchmark data.</p>
+<p><em>I opted to only analyze laptops using Intel Core i() (4th-9th Gen) CPUs.</em></p>
+</section>
+<section id="approach" class="level4">
+<h4 class="anchored" data-anchor-id="approach">Approach</h4>
+<p><strong>Data sets</strong></p>
+<p>Laptop Specs List:</p>
+<ul>
+<li><a href="https://www.kaggle.com/datasets/pradeepjangirml007/laptop-data-set/data" class="uri">https://www.kaggle.com/datasets/pradeepjangirml007/laptop-data-set/data</a>. This data was scraped from Smartprix.com. After analyzing the price column rigorously, I concluded that the price presented in “currency units” was in fact set in Indian rupees. The data presented ~4000 different laptops with their specifications: RAM GB, SSD vs HDD, CPU type etc.</li>
+</ul>
+<p>CPU Benchmark Data:</p>
+<ul>
+<li>&nbsp;<a href="https://www.cpubenchmark.net/cpu_list.php" class="uri">https://www.cpubenchmark.net/cpu_list.php</a>. This data presents a wide list of CPUs and their benchmarks after running a benchmarking software.</li>
+</ul>
+<p><strong>Tools</strong></p>
+<ul>
+<li><p>R Studio</p></li>
+<li><p>Google Gemini. <em>I used this as a source of learning concepts, functions, and debugging not included in my R workshop. Gemini was not used in a copy-paste method.</em></p></li>
+</ul>
+<p><strong>Approach</strong></p>
+<p>The first step in tackling this project was cleaning and standardizing both data sets, so I could assure successful merging into one data set. This consisted of extracting and pasting the names of the CPUs before merging. I used the mean of the benchmarks for Intel Core processors that had the same i() number and generation number for ease of merging. This means that H,U,G etc series models for Intel Core processors of the same generation and i() number are averaged into a single Intel Core benchmark value for the specific generation and i() number. Translating to series models not being accounted for in this project.</p>
+<p>To define <em>performance</em> I needed a performance grade variable. To solve this I crafted multiple formulas to conclude in a performance grade for each laptop. <em>I ignored GPUs and HDD storage.</em> The method is as follows including weighing, normalizing, and point system:</p>
+<p>Scoring for each variable</p>
+<ul>
+<li><p>CPU Mark = average mark score</p></li>
+<li><p>RAM =&nbsp;4 GB = 100, 8 GB = 200, 16 GB = 300, 32 GB = 400</p></li>
+<li><p>Hard Drive Storage (SSD) = 8GB = 1, 16 GB = 5, 64 GB = 10, 128 GB = 15, 256 GB = 40, 512 GB = 50, 1024 GB = 60</p></li>
+</ul>
+<p><em>There is a major jump from 128 GB to 256 GB as any laptop using 128GB of SSD or made major use of HDD.</em></p>
+<p>Maximum Component Score Calculations</p>
+<ul>
+<li><p>Average CPU Mark = 21029.467</p></li>
+<li><p>RAM = 400</p></li>
+<li><p>Hard Drive = 60</p></li>
+</ul>
+<p>Normalizing Scores</p>
+<p>Normalized Score =&nbsp; Component Score/Maximum Component Score x 100</p>
+<p>Weights for performance grade algorithm for productivity/workstation audience</p>
+<ol type="1">
+<li>CPU Norm.Score&nbsp; x 70%</li>
+</ol>
+<!-- -->
+<ol start="2" type="1">
+<li><p>RAM Norm.Score&nbsp; x 30%</p></li>
+<li><p>Hard Drive Norm.Scorex 18%</p></li>
+</ol>
+<p><em>error using 18%^ results in 118 percent</em></p>
+<p>Final Algorithm</p>
+<p>CPU norm.weight.score&nbsp;+ RAM norm.weight.score + Hard drive norm.weight.score = Performance Grade</p>
+<p>I also had to convert the price from Indian Rupees to USD for which I used the conversion value of 87.61. I also had to make a concluding variable which showed performance unit per dollar (performance grade/price USD). To present the data I chose to make three seperate graphs:</p>
+<p>1. All laptops listed on Price vs Performance Grade scatterplot (with top nine highlighted)</p>
+<p>2. All laptops listed on Price vs Performance Grade scatterplot (color coded per CPU type)</p>
+<p>3. Top ten laptops per performance unit per dollar</p>
+</section>
+<section id="results" class="level4">
+<h4 class="anchored" data-anchor-id="results">Results</h4>
+<p>Laptop List Cleaning</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>laptop_clean <span class="ot">&lt;-</span> laptop <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(     <span class="at">cleaned_cpu =</span> <span class="fu">case_when</span>(       <span class="fu">str_detect</span>(Processor_Name, <span class="st">"Intel Core i[0-9].*</span><span class="sc">\\</span><span class="st">(([4-9]{1})th Gen</span><span class="sc">\\</span><span class="st">)"</span>) <span class="sc">~</span>         <span class="fu">str_extract</span>(Processor_Name, <span class="st">"Intel Core i[0-9]"</span>)<span class="sc">|&gt;</span>         <span class="fu">paste0</span>(<span class="st">"-"</span>, <span class="fu">str_extract</span>(Processor_Name, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">()([4-9]{1})"</span>)),              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span>     ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>CPU Benchmark Cleaning</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cpu_clean_data <span class="ot">&lt;-</span> cpu <span class="sc">|&gt;</span>   <span class="fu">rename</span>(<span class="at">cpu_name =</span> <span class="st">'CPU Name'</span>) <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(     <span class="at">cleaned_cpu =</span> <span class="fu">case_when</span>(       <span class="fu">str_detect</span>(cpu_name, <span class="st">"Intel Core i[0-9]-([4-9]{1})"</span>) <span class="sc">~</span>         <span class="fu">str_extract</span>(cpu_name, <span class="st">"Intel Core i[0-9]-([4-9]{1})"</span>),       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span>     )    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Averaging CPU Benchmarks per Intel Core i() and Gen</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>average_cpu_scores <span class="ot">&lt;-</span> cpu_clean_data <span class="sc">|&gt;</span>   <span class="fu">group_by</span>(cleaned_cpu) <span class="sc">|&gt;</span>   <span class="fu">summarise</span>(     <span class="at">avg_cpu_mark =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">CPU Mark                          </span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Merging the Data Sets</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>merged_clean_data <span class="ot">&lt;-</span> laptop_clean <span class="sc">|&gt;</span>   <span class="fu">left_join</span>(average_cpu_scores, <span class="at">by =</span> <span class="st">"cleaned_cpu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Removing N/As from Data Set</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>final_data <span class="ot">&lt;-</span> merged_clean_data <span class="sc">|&gt;</span>   <span class="fu">drop_na</span>(cleaned_cpu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Weighing, Normalizing, and Performance Grade Formulas</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>max_scores <span class="ot">&lt;-</span> <span class="fu">list</span>(   <span class="at">cpu =</span> <span class="fl">21029.467</span>,   <span class="at">ram =</span> <span class="dv">400</span>,   <span class="at">hard_drive =</span> <span class="dv">60</span> )  weights <span class="ot">&lt;-</span> <span class="fu">list</span>(   <span class="at">cpu =</span> .<span class="dv">7</span>,    <span class="at">ram =</span> .<span class="dv">3</span>,    <span class="at">hard_drive =</span> .<span class="dv">18</span> ) fd_pf <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(     <span class="at">ram_score =</span> <span class="fu">case_when</span>(       RAM <span class="sc">==</span> <span class="st">"4 GB"</span> <span class="sc">~</span> <span class="dv">100</span>,       RAM <span class="sc">==</span> <span class="st">"8 GB"</span> <span class="sc">~</span> <span class="dv">200</span>,       RAM <span class="sc">==</span> <span class="st">"16 GB"</span> <span class="sc">~</span> <span class="dv">300</span>,       RAM <span class="sc">==</span> <span class="st">"32 GB"</span> <span class="sc">~</span> <span class="dv">400</span>,       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>     ),     <span class="at">hard_drive_score =</span> <span class="fu">case_when</span>(       SSD <span class="sc">==</span> <span class="st">"1024 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">60</span>,       SSD <span class="sc">==</span> <span class="st">"512 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">50</span>,       SSD <span class="sc">==</span> <span class="st">"256 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">40</span>,       SSD <span class="sc">==</span> <span class="st">"128 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">15</span>,       SSD <span class="sc">==</span> <span class="st">"64 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">10</span>,       SSD <span class="sc">==</span> <span class="st">"16 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">5</span>,       SSD <span class="sc">==</span> <span class="st">"8 GB SSD Storage"</span> <span class="sc">~</span> <span class="dv">1</span>,       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),     <span class="at">cpu_norm =</span> (avg_cpu_mark <span class="sc">/</span> max_scores<span class="sc">$</span>cpu) <span class="sc">*</span> <span class="dv">100</span>,     <span class="at">ram_norm =</span> (ram_score <span class="sc">/</span> max_scores<span class="sc">$</span>ram) <span class="sc">*</span> <span class="dv">100</span>,     <span class="at">hard_drive_norm =</span> (hard_drive_score <span class="sc">/</span> max_scores<span class="sc">$</span>hard_drive) <span class="sc">*</span> <span class="dv">100</span>,          <span class="at">cpu_weighted =</span> cpu_norm <span class="sc">*</span> weights<span class="sc">$</span>cpu,     <span class="at">ram_weighted =</span> ram_norm <span class="sc">*</span> weights<span class="sc">$</span>ram,     <span class="at">hard_drive_weighted =</span> hard_drive_norm <span class="sc">*</span> weights<span class="sc">$</span>hard_drive,     <span class="at">Performance_Grade =</span> cpu_weighted <span class="sc">+</span> ram_weighted <span class="sc">+</span> hard_drive_weighted   ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>INR to USD</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fd_pf_usd <span class="ot">&lt;-</span> fd_pf <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(<span class="at">price_usd =</span> Price<span class="sc">/</span> <span class="fl">87.61</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Performance Unit per Dollar</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>omega_data <span class="ot">&lt;-</span> fd_pf_usd <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(<span class="at">punit_per_usd =</span> Performance_Grade<span class="sc">/</span> price_usd )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All laptops listed on Price vs Performance Grade scatterplot (with top nine highlighted)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data =</span> omega_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price_usd, <span class="at">y =</span> Performance_Grade, <span class="at">position =</span> <span class="st">"jitter"</span> )) <span class="sc">+</span>   <span class="fu">geom_point</span>(<span class="at">data =</span> t10_punit_per_usd, <span class="fu">aes</span>(<span class="at">x =</span> price_usd, <span class="at">y =</span> Performance_Grade, <span class="at">color =</span> name_shrt, <span class="at">position =</span> <span class="st">"jitter"</span>)) <span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Price ($)"</span>, <span class="at">y=</span> <span class="st">"Performance Grade"</span>, <span class="at">title =</span> <span class="st">"Price vs Performance Grade"</span>, <span class="at">subtitle =</span> <span class="st">"Top Nine Highlighted"</span>, <span class="at">color =</span> <span class="st">"Top Nine Laptop Names"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All laptops listed on Price vs Performance Grade scatterplot (color coded per CPU type)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> omega_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price_usd, <span class="at">y =</span> Performance_Grade, <span class="at">color =</span> cleaned_cpu, <span class="at">position =</span> <span class="st">"jitter"</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Price (USD)"</span>, <span class="at">y  =</span> <span class="st">"Performance Grade"</span>, <span class="at">title =</span> <span class="st">"Price vs Performance Grade"</span>, <span class="at">subtitle =</span> <span class="st">"Color Coded by CPU"</span>, <span class="at">color =</span> <span class="st">"CPU Name"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Top ten laptops per performance unit per dollar</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>t10_punit_per_usd <span class="ot">&lt;-</span> omega_data <span class="sc">|&gt;</span>   <span class="fu">arrange</span>(<span class="fu">desc</span>(punit_per_usd)) <span class="sc">|&gt;</span>   <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span>   <span class="fu">mutate</span>(<span class="at">name_shrt =</span> <span class="fu">str_trunc</span>(<span class="st">`</span><span class="at">Name</span><span class="st">`</span>, <span class="at">width =</span> <span class="dv">20</span>)) <span class="fu">ggplot</span>(<span class="at">data =</span> t10_punit_per_usd, <span class="fu">aes</span>(<span class="at">x =</span> name_shrt, <span class="at">y =</span> punit_per_usd)) <span class="sc">+</span>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Laptops"</span>, <span class="at">y =</span> <span class="st">"Performance per USD"</span>, <span class="at">title =</span> <span class="st">"Top Ten Laptops"</span>, <span class="at">subtitle =</span> <span class="st">"Per Performance Grade / USD Price"</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="graphs" class="level4">
+<h4 class="anchored" data-anchor-id="graphs">Graphs</h4>
+<p>Graphs 1-3 listed in order.</p>
+<p><img src="Price vs Performance (Large).png" class="img-fluid"></p>
+<p><img src="PvPG CPU (Large).png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="T10 (reg).png" class="img-fluid figure-img"></p>
+<figcaption><img src="images/clipboard-3379563687.png" class="img-fluid figure-img"></figcaption>
+</figure>
+</div>
+</section>
+<section id="discussion" class="level4">
+<h4 class="anchored" data-anchor-id="discussion">Discussion</h4>
+<p>The data reveals that my hypothesis was incorrect. The highest scoring laptops in performance unit per dollar were consumer grade laptops. The logic holds, as they are focused on being well balanced and affordable.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
