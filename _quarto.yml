@@ -11,14 +11,10 @@ website:
 
   navbar:
     left:
-      - text: "Home"
-        file: about.qmd
+      - text: "About"
+        file: index.qmd
       - text: "Projects"
         file: projects.qmd
-      - text: "About Me"
-        file: about.qmd
-      - text: "CV"
-        file: cv.qmd
     right: 
       - icon: github
         href: https://github.com/diegogonzalez5813

@@ -1,24 +1,22 @@
 /*-- scss: defaults --*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
-$primary: #c0c0c0;
-$secondary: #0c131d;
-$tertiary: #0836C1;
+$primary: #000000;
+$secondary: #4E9FE5;
+$tertiary: #FF4d00;
+$quaternary: #FDFD96;
 $success: #50C878;
 $danger: #C21807;
 
 
 $body-bg: $primary;
-$body-color: #0c131d;
-$link-color: $tertiary;
+$body-color: $quaternary;
+$link-color: $secondary;
 $navbar-bg: $primary;
-$navbar-fg: $secondary;
+$navbar-fg: $tertiary;
 
 $font-family-sans-serif: "Roboto Flex", sans-serif;
-$headings-color: $secondary;
-
-$navbar-bg: #c0c0c0;
-$navbar-fg: $secondary;
+$headings-color: $quaternary;
 
 $enable-smooth-scroll: true !default;
 
@@ -27,7 +25,7 @@ $enable-smooth-scroll: true !default;
 /*-- scss:rules --*/
 .card {
   box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.3);
-  border: 0.05px solid #0c131d;
+  border: 0.05px solid $secondary;
   border-radius: 0.25rem;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
@@ -37,5 +35,5 @@ $enable-smooth-scroll: true !default;
 }
 
 .navbar {
-border-bottom: 2px dashed #0c131d ;
+border-bottom: 2px dashed $secondary ;
 }
